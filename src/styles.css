@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Example CSS to adjust mat-select panel */
+::ng-deep .mat-mdc-select-panel {
+  width: auto !important; /* Adjust width as needed */
+  z-index: 1000; /* Ensure it's above other elements */
+}

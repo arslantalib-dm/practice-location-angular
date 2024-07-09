@@ -1,0 +1,9 @@
+.cursor-pointer {
+  cursor: pointer !important;
+}
+.custom-cross-button{
+  background: none;
+  border: none;
+  font-size: 25px;
+  font-weight: 600;
+}

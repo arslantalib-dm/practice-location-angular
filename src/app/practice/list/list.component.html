@@ -1,0 +1,84 @@
+<div class="container">
+  <h2>Practices</h2>
+  <div class="col-12 d-flex justify-content-end mb-3">
+    <div class="col-2 d-flex justify-content-end px-2">
+      <button class="btn btn-success w-100" (click)="navigateToNewPractice()">New Practice</button>
+    </div>
+  </div>
+  <div class="card mb-4 bg-light">
+    <div class="card-body d-flex align-items-center justify-content-center">
+      <div class="col-12">
+        <form [formGroup]="practicesFilterForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-2">
+              <input type="text" formControlName="name" id="name" placeholder="Practice Name" class="form-control">
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+              <input type="text" formControlName="phone" id="phone" placeholder="Phone no" class="form-control">
+            </div>
+            <div class="col-lg-2 col-md-6 mb-2">
+              <button type="submit" class="btn btn-success w-100" [disabled]="!isFormValid">Filter</button>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-2">
+              <button type="reset" class="btn btn-secondary w-100" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Practice Name</th>
+        <th>Short Name</th>
+        <th>Phone No</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Email</th>
+        <th>Fax</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let practice of practices; let i = index">
+        <td>{{ pagination.from + i }}</td>
+        <td>{{ practice?.name ?? "N/A" }}</td>
+        <td>{{ practice?.qualifier ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.phone ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.address ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.city ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.state ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.zip ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.email ?? "N/A" }}</td>
+        <td>{{ practice?.location[0]?.fax ?? "N/A" }}</td>
+        <td>
+          <mat-slide-toggle
+          [checked]="practice.is_active == 1"
+          (change)="changeStatus($event.checked, practice.id)"
+          ></mat-slide-toggle>
+        </td>
+        <td>
+          <button mat-icon-button (click)="editPractice(practice)" [disabled]="!practice.is_active">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator
+    [length]="pagination?.total ?? 0"
+    [pageSize]="pagination?.perPage ?? 10"
+    [pageIndex]="pagination?.currentPage ?? 0"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    showFirstLastButtons
+    (page)="pageChanged($event)"
+  >
+  </mat-paginator>
+</div>

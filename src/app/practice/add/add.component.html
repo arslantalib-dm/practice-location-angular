@@ -1,0 +1,653 @@
+<div class="container-fluid mt-3 h-100">
+  <p class="h2">{{ isEditMode ? "Edit" : "Add" }} Practice</p>
+  <div class="card bg-light">
+    <div class="card-body">
+      <form [formGroup]="practicesForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <input
+                class="form-control"
+                placeholder="Name*"
+                id="name"
+                formControlName="name"
+              />
+              <div
+                *ngIf="
+                  practicesForm.get('name')?.invalid &&
+                  (practicesForm.get('name')?.dirty ||
+                    practicesForm.get('name')?.touched)
+                "
+              >
+                <small *ngIf="practicesForm.get('name')?.errors?.['required']"
+                  >Name is required.</small
+                >
+                <small *ngIf="practicesForm.get('name')?.errors?.['minlength']"
+                  >Name must be at least 3 characters long.</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <input
+                class="form-control"
+                placeholder="Short Name*"
+                id="qualifier"
+                formControlName="qualifier"
+              />
+              <div
+                *ngIf="
+                  practicesForm.get('qualifier')?.invalid &&
+                  (practicesForm.get('qualifier')?.dirty ||
+                    practicesForm.get('qualifier')?.touched)
+                "
+              >
+                <small
+                  *ngIf="practicesForm.get('qualifier')?.errors?.['required']"
+                  >Short Name is required.</small
+                >
+                <small
+                  *ngIf="practicesForm.get('qualifier')?.errors?.['minlength']"
+                  >Short Name must be at least 2 characters long.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="location">
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Address"
+                  id="address"
+                  formControlName="address"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Floor"
+                  id="floor"
+                  formControlName="floor"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="City"
+                  id="city"
+                  formControlName="city"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="State"
+                  id="state"
+                  formControlName="state"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Zip"
+                  id="zip"
+                  formControlName="zip"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Phone"
+                  id="phone"
+                  formControlName="phone"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Email"
+                  id="email"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Ext No"
+                  id="ext_no"
+                  formControlName="ext_no"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Cell No"
+                  id="cell_no"
+                  formControlName="cell_no"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="Fax"
+                  id="fax"
+                  formControlName="fax"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label
+                for="same_as_provider"
+                class="form-group form-control bg-secondary cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  class="m-1"
+                  id="same_as_provider"
+                  formControlName="same_as_provider"
+                />
+                <label>Check if billing same as provider</label>
+              </label>
+            </div>
+          </div>
+          <div formGroupName="billing">
+            <div class="row mb-3">
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Billing Provider Name"
+                    id="provider_name"
+                    formControlName="provider_name"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Address"
+                    id="address"
+                    formControlName="address"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="City"
+                    id="city"
+                    formControlName="city"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Zip"
+                    id="zip"
+                    formControlName="zip"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Floor"
+                    id="floor"
+                    formControlName="floor"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Phone"
+                    id="phone"
+                    formControlName="phone"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Email"
+                    id="email"
+                    formControlName="email"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Ext No"
+                    id="ext_no"
+                    formControlName="ext_no"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Cell No"
+                    id="cell_no"
+                    formControlName="cell_no"
+                    [disabled]="
+                      practicesForm.get('location.same_as_provider')?.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="NPI"
+                    id="npi"
+                    formControlName="npi"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div
+                  class="form-group form-control d-flex justify-content-between"
+                >
+                  <label>Task ID Check</label>
+                  <span>
+                    <label style="margin-right: 10px">
+                      <input
+                        type="radio"
+                        formControlName="tax_id_check"
+                        value="1"
+                      />
+                      TIN
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        formControlName="tax_id_check"
+                        value="2"
+                      />
+                      SSN
+                    </label>
+                  </span>
+                </div>
+                <div
+                  *ngIf="
+                    practicesForm
+                      .get('location')
+                      ?.get('billing')
+                      ?.get('tax_id_check')?.invalid &&
+                    (practicesForm
+                      .get('location')
+                      ?.get('billing')
+                      ?.get('tax_id_check')?.dirty ||
+                      practicesForm
+                        .get('location')
+                        ?.get('billing')
+                        ?.get('tax_id_check')?.touched)
+                  "
+                >
+                  <small
+                    *ngIf="practicesForm.get('location')?.get('billing')?.get('tax_id_check')?.errors?.['required']"
+                    >Task ID Check is required.</small
+                  >
+                </div>
+              </div>
+              <div
+                class="col-md-4 mb-3"
+                [ngClass]="{
+                  'd-none':
+                    practicesForm
+                      .get('location')
+                      ?.get('billing')
+                      ?.get('tax_id_check')?.value !== '1'
+                }"
+              >
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="TIN"
+                    id="tin"
+                    formControlName="tin"
+                    type="number"
+                  />
+                  <div
+                    *ngIf="
+                      practicesForm.get('location')?.get('billing')?.get('tin')
+                        ?.invalid &&
+                      (practicesForm.get('location')?.get('billing')?.get('tin')
+                        ?.dirty ||
+                        practicesForm
+                          .get('location')
+                          ?.get('billing')
+                          ?.get('tin')?.touched)
+                    "
+                  >
+                    <small
+                      *ngIf="practicesForm.get('location')?.get('billing')?.get('tin')?.errors?.['pattern']"
+                      >TIN must be a 9-digit number.</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-md-4 mb-3"
+                [ngClass]="{
+                  'd-none':
+                    practicesForm
+                      .get('location')
+                      ?.get('billing')
+                      ?.get('tax_id_check')?.value !== '2'
+                }"
+              >
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="SSN"
+                    id="ssn"
+                    formControlName="ssn"
+                    type="number"
+                  />
+                  <div
+                    *ngIf="
+                      practicesForm.get('location')?.get('billing')?.get('ssn')
+                        ?.invalid &&
+                      (practicesForm.get('location')?.get('billing')?.get('ssn')
+                        ?.dirty ||
+                        practicesForm
+                          .get('location')
+                          ?.get('billing')
+                          ?.get('ssn')?.touched)
+                    "
+                  >
+                    <small
+                      *ngIf="practicesForm.get('location')?.get('billing')?.get('ssn')?.errors?.['pattern']"
+                      >SSN must be a 9-digit number.</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Dol"
+                    id="dol"
+                    formControlName="dol"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4 mb-3">
+            <div class="form-group form-control d-flex justify-content-between">
+              <label>Generate PDF</label>
+              <span>
+                <label style="margin-right: 10px">
+                  <input
+                    type="radio"
+                    formControlName="generate_document_using"
+                    value="citimed"
+                  />
+                  Citimed
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    formControlName="generate_document_using"
+                    value="optimum"
+                  />
+                  Optimum
+                </label>
+              </span>
+            </div>
+            <div
+              *ngIf="
+                practicesForm.get('generate_document_using')?.invalid &&
+                (practicesForm.get('generate_document_using')?.dirty ||
+                  practicesForm.get('generate_document_using')?.touched)
+              "
+            >
+              <small
+                *ngIf="practicesForm.get('generate_document_using')?.errors?.['required']"
+                >Generate PDF Check is required.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mb-3">
+            <div class="form-group">
+              <input
+                class="form-control mb-3"
+                placeholder="Signature Title*"
+                id="signature_title"
+                formControlName="signature_title"
+              />
+              <div
+                *ngIf="
+                  practicesForm.get('signature_title')?.invalid &&
+                  (practicesForm.get('signature_title')?.dirty ||
+                    practicesForm.get('signature_title')?.touched)
+                "
+              >
+                <small
+                  *ngIf="practicesForm.get('signature_title')?.errors?.['required']"
+                  >Signature Title is required.</small
+                >
+                <small
+                  *ngIf="practicesForm.get('signature_title')?.errors?.['minlength']"
+                  >Signature Title must be at least 3 characters long.</small
+                >
+              </div>
+
+              <div *ngIf="signatureFilePath; else elseSignature">
+                <img src="{{ signatureFilePath }}" alt="" width="200" />
+                <br>
+                <button type="button" class="btn btn-danger m-2" (click)="removeSignature()">Clear Signature</button>
+              </div>
+              <ng-template #elseSignature>
+                <input
+                  type="file"
+                  id="signature_file"
+                  name="signature_file"
+                  class="form-control"
+                  formControlName="signature_file"
+                  (change)="uploadImage($event)"
+                />
+                <div
+                  *ngIf="
+                    practicesForm.get('signature_file')?.invalid &&
+                    (practicesForm.get('signature_file')?.dirty ||
+                      practicesForm.get('signature_file')?.touched)
+                  "
+                >
+                  <small
+                    *ngIf="practicesForm.get('signature_file')?.errors?.['required']"
+                    >Signature File is required.</small
+                  >
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-5 mt-3">
+            <button
+              type="button"
+              class="btn btn-secondary d-flex"
+              (click)="addlocation()"
+              [disabled]="!practicesForm.get('id')?.value"
+            >
+              <mat-icon>add</mat-icon>Add Location
+            </button>
+          </div>
+          <div class="col-md-12 d-flex justify-content-center">
+            <button type="submit" class="btn btn-success col-2">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Location Name</th>
+                <th>Short Name</th>
+                <th>Phone No</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Email</th>
+                <th>Fax</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let location of locations; let i = index">
+                <td>{{ pagination.from + i }}</td>
+                <td>{{ location?.name ?? "N/A" }}</td>
+                <td>{{ location?.qualifier ?? "N/A" }}</td>
+                <td>{{ location?.phone ?? "N/A" }}</td>
+                <td>{{ location?.address ?? "N/A" }}</td>
+                <td>{{ location?.city ?? "N/A" }}</td>
+                <td>{{ location?.state ?? "N/A" }}</td>
+                <td>{{ location?.zip ?? "N/A" }}</td>
+                <td>{{ location?.email ?? "N/A" }}</td>
+                <td>{{ location?.fax ?? "N/A" }}</td>
+                <td>
+                  <mat-slide-toggle
+                    [checked]="location.is_active == 1"
+                    (change)="changeLocationStatus($event.checked, location.id)"
+                  ></mat-slide-toggle>
+                </td>
+                <td>
+                  <button
+                    mat-icon-button
+                    (click)="editPracticeLocation(location)"
+                    [disabled]="!location.is_active"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <mat-paginator
+            [length]="pagination?.total ?? 0"
+            [pageSize]="pagination?.perPage ?? 10"
+            [pageIndex]="pagination?.currentPage ?? 0"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            showFirstLastButtons
+            (page)="pageChanged($event)"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  #addLocation
+  id="addLocation"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addLocationLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-between bg-dark text-light"
+      >
+        <h1 class="modal-title m-0" id="addLocationLabel">Add Location</h1>
+        <button
+          type="button"
+          class="close custom-cross-button text-light"
+          (click)="closeModal()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-practice-location-add
+          *ngIf="showAddLocationComponent"
+          [facilityId]="practicesForm.get('id')?.value"
+          [locationId]="selectedLocationId"
+          (modalClosed)="closeModal()"
+          (fetchLocations)="getLocations(practicesForm.get('id')?.value)"
+        ></app-practice-location-add>
+      </div>
+    </div>
+  </div>
+</div>

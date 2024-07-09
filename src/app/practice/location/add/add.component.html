@@ -1,0 +1,313 @@
+<form [formGroup]="practicesLocationForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body bg-light">
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <div class="form-group">
+          <label for="name">Name*</label>
+          <input class="form-control" id="name" formControlName="name" />
+          <div
+            *ngIf="
+              practicesLocationForm.get('name')?.invalid &&
+              (practicesLocationForm.get('name')?.dirty ||
+                practicesLocationForm.get('name')?.touched)
+            "
+          >
+            <small
+              *ngIf="practicesLocationForm.get('name')?.errors?.['required']"
+              >Name is required.</small
+            >
+            <small
+              *ngIf="practicesLocationForm.get('name')?.errors?.['minlength']"
+              >Name must be at least 3 characters long.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="qualifier">Short Name*</label>
+        <div class="form-group">
+          <input
+            class="form-control"
+            id="qualifier"
+            formControlName="qualifier"
+          />
+          <div
+            *ngIf="
+              practicesLocationForm.get('qualifier')?.invalid &&
+              (practicesLocationForm.get('qualifier')?.dirty ||
+                practicesLocationForm.get('qualifier')?.touched)
+            "
+          >
+            <small
+              *ngIf="practicesLocationForm.get('qualifier')?.errors?.['required']"
+              >Short Name is required.</small
+            >
+            <small
+              *ngIf="practicesLocationForm.get('qualifier')?.errors?.['minlength']"
+              >Short Name must be at least 2 characters long.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input class="form-control" id="address" formControlName="address" />
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="floor">Floor</label>
+        <div class="form-group">
+          <input class="form-control" id="floor" formControlName="floor" />
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="city">City</label>
+        <div class="form-group">
+          <input class="form-control" id="city" formControlName="city" />
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="state">State</label>
+        <div class="form-group">
+          <input class="form-control" id="state" formControlName="state" />
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="form-group">
+          <label for="zip">Zip</label>
+          <input class="form-control" id="zip" formControlName="zip" />
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input class="form-control" id="phone" formControlName="phone" />
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="email">Email</label>
+        <div class="form-group">
+          <input class="form-control" id="email" formControlName="email" />
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="form-group">
+          <label for="fax">Fax</label>
+          <input class="form-control" id="fax" formControlName="fax" />
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="dean">Institutional DEA Number (xx0000000)</label>
+        <div class="form-group">
+          <input class="form-control" id="dean" formControlName="dean" />
+          <div
+            *ngIf="
+              practicesLocationForm.get('dean')?.invalid &&
+              (practicesLocationForm.get('dean')?.dirty ||
+                practicesLocationForm.get('dean')?.touched)
+            "
+          >
+            <small
+              *ngIf="practicesLocationForm.get('dean')?.errors?.['pattern']"
+              >Pattern must be followed.</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <div class="form-group">
+          <label for="region">Select Regions*</label>
+          <select
+            name="region"
+            id="region"
+            formControlName="region_id"
+            class="form-control"
+          >
+            <option value="" disabled selected>Select Region</option>
+            <option *ngFor="let region of regions" [value]="region.id">
+              {{ region.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              practicesLocationForm.get('region_id')?.invalid &&
+              (practicesLocationForm.get('region_id')?.dirty ||
+                practicesLocationForm.get('region_id')?.touched)
+            "
+          >
+            <small
+              *ngIf="practicesLocationForm.get('region_id')?.errors?.['required']"
+              >Region is required.</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <div class="form-group">
+          <label for="service">Place of Service*</label>
+          <select
+            name="service"
+            id="service"
+            formControlName="place_of_service_id"
+            class="form-control"
+          >
+            <option value="" disabled selected>Select Service</option>
+            <option *ngFor="let service of services" [value]="service.id">
+              {{ service.name }} {{ service.code }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              practicesLocationForm.get('place_of_service_id')?.invalid &&
+              (practicesLocationForm.get('place_of_service_id')?.dirty ||
+                practicesLocationForm.get('place_of_service_id')?.touched)
+            "
+          >
+            <small
+              *ngIf="practicesLocationForm.get('place_of_service_id')?.errors?.['required']"
+              >Place of service is required.</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="form-group">
+          <label for="latitude">Latitude</label>
+          <input class="form-control" id="latitude" formControlName="lat" />
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="form-group">
+          <label for="longitude">Longitude</label>
+          <input class="form-control" id="longitude" formControlName="long" />
+        </div>
+      </div>
+
+      <p>Note: You are saving this time according to "Asia/Karachi" timezone</p>
+
+      <div class="col-md-12 mb-3">
+        <div class="form-group">
+          <label for="longitude">Select Days*</label>
+          <br />
+          <small
+            *ngIf="practicesLocationForm.get('timings')?.errors?.['required']"
+            >Timing is required.</small
+          >
+          <div class="row">
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-1"
+              (click)="toggleDaySelection(1, 'Sunday')"
+            >
+              Sunday
+            </button>
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-2"
+              (click)="toggleDaySelection(2, 'Monday')"
+            >
+              Monday
+            </button>
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-3"
+              (click)="toggleDaySelection(3, 'Tuesday')"
+            >
+              Tuesday
+            </button>
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-4"
+              (click)="toggleDaySelection(4, 'Wednesday')"
+            >
+              Wednesday
+            </button>
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-5"
+              (click)="toggleDaySelection(5, 'Thursday')"
+            >
+              Thursday
+            </button>
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-6"
+              (click)="toggleDaySelection(6, 'Friday')"
+            >
+              Friday
+            </button>
+            <button
+              type="button"
+              class="btn btn-light border m-1 col-2"
+              id="day-7"
+              (click)="toggleDaySelection(7, 'Saturday')"
+            >
+              Saturday
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div formArrayName="timings">
+        <div *ngIf="timingsFormArray.controls.length > 0">
+          <thead>
+            <tr>
+              <th>Days</th>
+              <th>Office Hours Start</th>
+              <th>Office Hours End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let timing of timingsFormArray.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <td>
+                <input
+                  type="string"
+                  id="day_name"
+                  formControlName="day_name"
+                  class="form-control"
+                />
+              </td>
+              <td>
+                <input
+                  type="time"
+                  id="start_time"
+                  formControlName="start_time"
+                  class="form-control"
+                />
+              </td>
+              <td>
+                <input
+                  type="time"
+                  id="end_time"
+                  formControlName="end_time"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save changes</button>
+</form>

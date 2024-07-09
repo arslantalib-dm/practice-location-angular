@@ -172,4 +172,16 @@ export class PracticeService {
         });
     });
   }
+
+  deleteSignature(id: number): Promise<any> {
+    return new Promise((resolve: any, reject) => {
+      let apiURL = `${this.apiUrl}/delete-file/${id}`;
+      this.http
+        .delete(apiURL)
+        .toPromise()
+        .then((res: any) => {
+          resolve(res.data);
+        });
+    });
+  }
 }

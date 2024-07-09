@@ -29,6 +29,7 @@ export class PracticeAddComponent implements OnInit, AfterViewInit {
   selectedLocationId: any;
   facilityId: any;
   file: any;
+  signatures: any = [];
   isSignatureUpload: boolean = false;
   signatureFilePath: string = '';
 
@@ -125,8 +126,8 @@ export class PracticeAddComponent implements OnInit, AfterViewInit {
   async loadFormData(id: number) {
     const response = await this.practiceservice.findPractice(id);
     const signature = await this.practiceservice.getSignature(id, 'facilitySignature');
-    console.log({ response });
-
+    console.log({ response }, { signature });
+    this.signatures = signature;
     if (signature.length) {
       this.isSignatureUpload = true;
       this.signatureFilePath = environment.backendWebUrl + signature[0]?.file_link;
@@ -225,8 +226,9 @@ export class PracticeAddComponent implements OnInit, AfterViewInit {
 
         const response = this.practiceservice.uploadSignature(formData);
 
-        console.log({ response });
-
+        if (this.signatures.length) {
+          this.deleteSignature(this.signatures[0])
+        }
       }
 
       this.router.navigate(['/']);
@@ -315,10 +317,16 @@ export class PracticeAddComponent implements OnInit, AfterViewInit {
 
   removeSignature() {
     this.practicesForm.patchValue({
-      signature_title: '',
       signature_file: '',
     });
     this.isSignatureUpload = false;
     this.signatureFilePath = '';
+  }
+
+  async deleteSignature(signature: any)
+  {
+    const { id } = signature;
+    await this.practiceservice.deleteSignature(id);
+    this.loadFormData(this.practicesForm.value.id);
   }
 }

@@ -478,7 +478,7 @@
         </div>
 
         <div class="row">
-          <div class="col-6 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="form-group">
               <input
                 class="form-control mb-3"
@@ -532,6 +532,32 @@
               </ng-template>
             </div>
           </div>
+
+            <div class="col-md-6 mb-3">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Signature Title</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let signature of signatures; let i = index">
+                    <td>{{ signature?.file_title ?? "N/A" }}</td>
+
+                    <td>
+                      <button
+                        type="button"
+                        mat-icon-button
+                        (click)="deleteSignature(signature)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
 
         <div class="row">

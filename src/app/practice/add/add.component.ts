@@ -125,25 +125,25 @@ export class PracticeAddComponent implements OnInit, AfterViewInit {
   async loadFormData(id: number) {
     const response = await this.practiceservice.findPractice(id);
     const signature = await this.practiceservice.getSignature(id, 'facilitySignature');
-    console.log({ response }, response.location[0].billing[0]);
+    console.log({ response });
 
     if (signature.length) {
       this.isSignatureUpload = true;
-      this.signatureFilePath = environment.backendWebUrl + signature[0].file_link;
+      this.signatureFilePath = environment.backendWebUrl + signature[0]?.file_link;
     }
 
-    console.log('asd', environment.backendWebUrl + signature[0].file_link);
+    console.log('asd', environment.backendWebUrl + signature[0]?.file_link);
 
 
     this.practicesForm.patchValue({
       ...response,
-      signature_title: signature[0].file_title,
-      signature_file: signature[0].file_name,
+      signature_title: signature[0]?.file_title ?? '',
+      signature_file: signature[0]?.file_name ?? '',
       location: {
-        ...response.location[0],
+        ...response?.location[0],
         billing: {
-          ...response.location[0].billing[0],
-          tax_id_check: response.location[0].billing[0].tax_id_check.toString(),
+          ...response?.location[0]?.billing[0],
+          tax_id_check: response?.location[0]?.billing[0]?.tax_id_check.toString(),
         },
       },
     });

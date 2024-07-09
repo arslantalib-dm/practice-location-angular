@@ -12,11 +12,11 @@
                 practicesLocationForm.get('name')?.touched)
             "
           >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('name')?.errors?.['required']"
               >Name is required.</small
             >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('name')?.errors?.['minlength']"
               >Name must be at least 3 characters long.</small
             >
@@ -38,11 +38,11 @@
                 practicesLocationForm.get('qualifier')?.touched)
             "
           >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('qualifier')?.errors?.['required']"
               >Short Name is required.</small
             >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('qualifier')?.errors?.['minlength']"
               >Short Name must be at least 2 characters long.</small
             >
@@ -114,7 +114,7 @@
                 practicesLocationForm.get('dean')?.touched)
             "
           >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('dean')?.errors?.['pattern']"
               >Pattern must be followed.</small
             >
@@ -143,7 +143,7 @@
                 practicesLocationForm.get('region_id')?.touched)
             "
           >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('region_id')?.errors?.['required']"
               >Region is required.</small
             >
@@ -172,7 +172,7 @@
                 practicesLocationForm.get('place_of_service_id')?.touched)
             "
           >
-            <small
+            <small class="error-message"
               *ngIf="practicesLocationForm.get('place_of_service_id')?.errors?.['required']"
               >Place of service is required.</small
             >
@@ -200,7 +200,7 @@
         <div class="form-group">
           <label for="longitude">Select Days*</label>
           <br />
-          <small
+          <small class="error-message"
             *ngIf="practicesLocationForm.get('timings')?.errors?.['required']"
             >Timing is required.</small
           >
